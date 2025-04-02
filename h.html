@@ -1,0 +1,636 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gemini Chatbot (Client-Side - All-in-One)</title>
+    <style>
+      /* Base Styles */
+      :root {
+          --primary-color: #4285f4; /* Google blue */
+          --secondary-color: #34a853; /* Google green */
+          --accent-color: #ea4335; /* Google red */
+          --text-color: #202124;
+          --light-text: #5f6368;
+          --bg-color: #f8f9fa;
+          --card-bg: #ffffff;
+          --user-bubble: #4285f4;
+          --bot-bubble: #f1f3f4;
+          --error-bubble: #fce8e6;
+          --system-bubble: #e8f0fe;
+          --shadow: 0 1px 2px 0 rgba(60,64,67,0.3), 0 1px 3px 1px rgba(60,64,67,0.15);
+          --border-radius: 12px;
+          --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      }
+  
+      body {
+          font-family: 'Google Sans', 'Segoe UI', Roboto, -apple-system, sans-serif;
+          margin: 0;
+          background-color: var(--bg-color);
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          min-height: 100vh;
+          color: var(--text-color);
+          line-height: 1.6;
+      }
+  
+      /* Chat Container */
+      .chat-container {
+          background-color: var(--card-bg);
+          border-radius: var(--border-radius);
+          box-shadow: var(--shadow);
+          width: 100%;
+          max-width: 600px;
+          height: 90vh;
+          max-height: 800px;
+          display: flex;
+          flex-direction: column;
+          overflow: hidden;
+          transition: var(--transition);
+      }
+  
+      /* Header */
+      h1 {
+          text-align: center;
+          color: var(--text-color);
+          padding: 18px;
+          margin: 0;
+          background-color: var(--card-bg);
+          font-size: 1.3rem;
+          font-weight: 500;
+          border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+          position: relative;
+      }
+  
+      h1::after {
+          content: "";
+          position: absolute;
+          bottom: 0;
+          left: 50%;
+          transform: translateX(-50%);
+          width: 40px;
+          height: 3px;
+          background-color: var(--primary-color);
+          border-radius: 3px;
+      }
+  
+      /* API Key Section */
+      #apiKeySection {
+          padding: 25px;
+          display: flex;
+          flex-direction: column;
+          flex-grow: 1;
+          justify-content: center;
+      }
+  
+      #apiKeySection label {
+          display: block;
+          margin-bottom: 8px;
+          font-weight: 500;
+          color: var(--text-color);
+      }
+  
+      #apiKeySection input {
+          width: 100%;
+          padding: 12px 16px;
+          margin-bottom: 15px;
+          border: 1px solid #dadce0;
+          border-radius: 8px;
+          font-size: 1rem;
+          transition: var(--transition);
+      }
+  
+      #apiKeySection input:focus {
+          border-color: var(--primary-color);
+          outline: none;
+          box-shadow: 0 0 0 2px rgba(66, 133, 244, 0.2);
+      }
+  
+      #apiKeySection button {
+          padding: 12px 24px;
+          background-color: var(--primary-color);
+          color: white;
+          border: none;
+          border-radius: 8px;
+          cursor: pointer;
+          font-weight: 500;
+          font-size: 0.95rem;
+          transition: var(--transition);
+          align-self: flex-start;
+      }
+  
+      #apiKeySection button:hover {
+          background-color: #3367d6;
+          box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+      }
+  
+      #apiKeySection button:active {
+          background-color: #2a56c4;
+      }
+  
+      .warning {
+          color: #d93025;
+          font-size: 0.85rem;
+          margin-top: 20px;
+          background-color: var(--error-bubble);
+          border: 1px solid #f5c6cb;
+          padding: 12px;
+          border-radius: 8px;
+          line-height: 1.5;
+      }
+  
+      .warning strong {
+          font-weight: 500;
+      }
+  
+      /* Chat Area */
+      #chatbox {
+          flex-grow: 1;
+          overflow-y: auto;
+          padding: 20px;
+          display: flex;
+          flex-direction: column;
+          gap: 16px;
+          scroll-behavior: smooth;
+      }
+  
+      /* Message Bubbles */
+      .message {
+          padding: 12px 16px;
+          border-radius: 16px;
+          max-width: 85%;
+          word-wrap: break-word;
+          position: relative;
+          animation: fadeIn 0.3s ease-out;
+          box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+          line-height: 1.5;
+          font-size: 0.95rem;
+      }
+  
+      @keyframes fadeIn {
+          from { opacity: 0; transform: translateY(10px); }
+          to { opacity: 1; transform: translateY(0); }
+      }
+  
+      .user-message {
+          background-color: var(--user-bubble);
+          color: white;
+          align-self: flex-end;
+          border-bottom-right-radius: 4px;
+          margin-left: 15%;
+      }
+  
+      .bot-message {
+          background-color: var(--bot-bubble);
+          color: var(--text-color);
+          align-self: flex-start;
+          border-bottom-left-radius: 4px;
+          margin-right: 15%;
+      }
+  
+      .error-message {
+          background-color: var(--error-bubble);
+          color: #d93025;
+          border: 1px solid #f5c6cb;
+          align-self: flex-start;
+          border-bottom-left-radius: 4px;
+      }
+  
+      .system-message {
+          background-color: var(--system-bubble);
+          color: var(--primary-color);
+          border: 1px solid #d2e3fc;
+          align-self: center;
+          width: 90%;
+          text-align: center;
+          font-size: 0.85rem;
+          padding: 10px 16px;
+          border-radius: 8px;
+      }
+  
+      /* Input Area */
+      .input-area {
+          display: flex;
+          padding: 16px;
+          background-color: var(--card-bg);
+          border-top: 1px solid rgba(0, 0, 0, 0.08);
+          gap: 8px;
+      }
+  
+      #userInput {
+          flex-grow: 1;
+          padding: 12px 16px;
+          border: 1px solid #dadce0;
+          border-radius: 24px;
+          font-size: 0.95rem;
+          transition: var(--transition);
+          resize: none;
+          min-height: 20px;
+          max-height: 120px;
+          line-height: 1.5;
+      }
+  
+      #userInput:focus {
+          border-color: var(--primary-color);
+          outline: none;
+          box-shadow: 0 0 0 2px rgba(66, 133, 244, 0.2);
+      }
+  
+      #sendBtn {
+          padding: 0;
+          width: 48px;
+          height: 48px;
+          background-color: var(--primary-color);
+          color: white;
+          border: none;
+          border-radius: 50%;
+          cursor: pointer;
+          transition: var(--transition);
+          display: flex;
+          align-items: center;
+          justify-content: center;
+      }
+  
+      #sendBtn:hover {
+          background-color: #3367d6;
+          transform: scale(1.05);
+      }
+  
+      #sendBtn:active {
+          background-color: #2a56c4;
+          transform: scale(0.98);
+      }
+  
+      #sendBtn:disabled {
+          background-color: #e0e0e0;
+          cursor: not-allowed;
+          transform: none;
+      }
+  
+      #sendBtn svg {
+          width: 24px;
+          height: 24px;
+          fill: currentColor;
+      }
+  
+      /* Loading Indicator */
+      #loadingIndicator {
+          text-align: center;
+          padding: 12px;
+          color: var(--light-text);
+          font-size: 0.9rem;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          gap: 8px;
+      }
+  
+      .loading-dots {
+          display: flex;
+          gap: 4px;
+      }
+  
+      .loading-dots span {
+          width: 8px;
+          height: 8px;
+          background-color: var(--light-text);
+          border-radius: 50%;
+          display: inline-block;
+          animation: bounce 1.4s infinite ease-in-out both;
+      }
+  
+      .loading-dots span:nth-child(1) {
+          animation-delay: -0.32s;
+      }
+  
+      .loading-dots span:nth-child(2) {
+          animation-delay: -0.16s;
+      }
+  
+      @keyframes bounce {
+          0%, 80%, 100% { transform: scale(0); }
+          40% { transform: scale(1); }
+      }
+  
+      /* Scrollbar Styling */
+      #chatbox::-webkit-scrollbar {
+          width: 8px;
+      }
+  
+      #chatbox::-webkit-scrollbar-track {
+          background: rgba(0, 0, 0, 0.05);
+          border-radius: 4px;
+      }
+  
+      #chatbox::-webkit-scrollbar-thumb {
+          background: rgba(0, 0, 0, 0.2);
+          border-radius: 4px;
+      }
+  
+      #chatbox::-webkit-scrollbar-thumb:hover {
+          background: rgba(0, 0, 0, 0.3);
+      }
+  
+      /* Hidden State */
+      .hidden {
+          display: none !important;
+      }
+  
+      /* Responsive Adjustments */
+      @media (max-width: 480px) {
+          .chat-container {
+              height: 100vh;
+              max-height: none;
+              border-radius: 0;
+          }
+          
+          .message {
+              max-width: 90%;
+          }
+          
+          #apiKeySection {
+              padding: 20px 15px;
+          }
+      }
+  </style>
+</head>
+<body>
+    <div class="chat-container">
+        <h1>Chat bot của embe niuuuuu</h1>
+
+        <div id="apiKeySection">
+            <label for="apiKey">Enter your Google AI Studio API Key:</label>
+            <input type="password" id="apiKey" placeholder="Dán API Key của bạn vào đây">
+            <button id="saveApiKeyBtn">Lưu Key & Bắt đầu</button>
+            <p class="warning">
+                <strong>CẢNH BÁO BẢO MẬT NGHIÊM TRỌNG:</strong> Không bao giờ chia sẻ API Key hoặc sử dụng phương pháp này trong môi trường production. Key của bạn hiển thị trong mã nguồn trình duyệt (Chuột phải -> View Page Source)! Chỉ dùng để thử nghiệm cá nhân.
+            </p>
+        </div>
+
+        <div id="chatbox" class="hidden">
+            <!-- Tin nhắn sẽ được thêm vào đây -->
+        </div>
+
+        <div id="inputArea" class="input-area hidden">
+            <input type="text" id="userInput" placeholder="Nhập tin nhắn của bạn...">
+            <button id="sendBtn">Gửi</button>
+        </div>
+         <div id="loadingIndicator" class="hidden">Bot đang trả lời...</div>
+    </div>
+
+    <script>
+        // JavaScript Code Starts Here
+        document.addEventListener('DOMContentLoaded', () => {
+            const apiKeyInput = document.getElementById('apiKey');
+            const saveApiKeyBtn = document.getElementById('saveApiKeyBtn');
+            const apiKeySection = document.getElementById('apiKeySection');
+            const chatbox = document.getElementById('chatbox');
+            const userInput = document.getElementById('userInput');
+            const sendBtn = document.getElementById('sendBtn');
+            const inputArea = document.getElementById('inputArea');
+            const loadingIndicator = document.getElementById('loadingIndicator');
+
+            let apiKey = localStorage.getItem('geminiApiKey');
+            // *** THAY ĐỔI MODEL NẾU CẦN ***
+            const MODEL_NAME = 'gemini-1.5-pro-latest'; // hoặc 'gemini-1.5-flash-latest'
+            const API_BASE_URL = 'https://generativelanguage.googleapis.com/v1beta/models/';
+
+            // Lưu trữ lịch sử chat (đơn giản)
+            let chatHistory = [];
+
+            // --- Khởi tạo ---
+            if (apiKey) {
+                showChatInterface();
+                // Thêm lời chào nếu chatbox trống
+                if(chatbox.children.length === 0) {
+                    addMessage('bot', 'Chào bạn! Tôi có thể giúp gì?', 'system-message');
+                }
+            } else {
+                showApiKeyInput();
+            }
+
+            // --- Hàm hiển thị giao diện ---
+            function showApiKeyInput() {
+                apiKeySection.classList.remove('hidden');
+                chatbox.classList.add('hidden');
+                inputArea.classList.add('hidden');
+                loadingIndicator.classList.add('hidden');
+            }
+
+            function showChatInterface() {
+                apiKeySection.classList.add('hidden');
+                chatbox.classList.remove('hidden');
+                inputArea.classList.remove('hidden');
+                loadingIndicator.classList.add('hidden'); // Ẩn loading ban đầu
+            }
+
+            // --- Xử lý lưu API Key ---
+            saveApiKeyBtn.addEventListener('click', () => {
+                const key = apiKeyInput.value.trim();
+                if (key) {
+                    apiKey = key;
+                    // Lưu vào localStorage (vẫn không an toàn!)
+                    localStorage.setItem('geminiApiKey', key);
+                    showChatInterface();
+                    addMessage('bot', 'API Key đã được lưu. Bây giờ bạn có thể bắt đầu chat!', 'system-message');
+                     // Xóa lịch sử cũ khi đổi key (tùy chọn)
+                    chatHistory = [];
+                    // Xóa các tin nhắn cũ khỏi giao diện
+                    // while (chatbox.firstChild) {
+                    //     chatbox.removeChild(chatbox.firstChild);
+                    // }
+                } else {
+                    alert('Vui lòng nhập API Key hợp lệ.');
+                }
+            });
+
+            // --- Hàm gửi tin nhắn ---
+            async function sendMessage() {
+                const messageText = userInput.value.trim();
+                if (!messageText) return;
+
+                if (!apiKey) {
+                    addMessage('bot', 'Lỗi: API Key chưa được thiết lập. Vui lòng nhập key vào ô bên trên hoặc tải lại trang nếu đã nhập.', 'error-message');
+                    showApiKeyInput(); // Hiển thị lại phần nhập key
+                    return;
+                }
+
+                addMessage('user', messageText);
+                updateChatHistory('user', messageText); // Cập nhật lịch sử
+                userInput.value = '';
+                showLoading(true);
+
+                const fullApiUrl = `${API_BASE_URL}${MODEL_NAME}:generateContent?key=${apiKey}`;
+
+                try {
+                    const requestBody = {
+                        // Bao gồm lịch sử chat để bot có ngữ cảnh
+                        contents: chatHistory,
+                        // Thêm các cài đặt generation nếu muốn
+                        // generationConfig: {
+                        //   temperature: 0.9,
+                        //   topK: 1,
+                        //   topP: 1,
+                        //   maxOutputTokens: 2048,
+                        // },
+                        // Thêm cài đặt an toàn nếu muốn
+                        // safetySettings: [
+                        //   { category: "HARM_CATEGORY_HARASSMENT", threshold: "BLOCK_MEDIUM_AND_ABOVE" },
+                        //   { category: "HARM_CATEGORY_HATE_SPEECH", threshold: "BLOCK_MEDIUM_AND_ABOVE" },
+                        //   { category: "HARM_CATEGORY_SEXUALLY_EXPLICIT", threshold: "BLOCK_MEDIUM_AND_ABOVE" },
+                        //   { category: "HARM_CATEGORY_DANGEROUS_CONTENT", threshold: "BLOCK_MEDIUM_AND_ABOVE" },
+                        // ]
+                    };
+
+                    console.log("Sending request to:", fullApiUrl);
+                    console.log("Request body:", JSON.stringify(requestBody, null, 2));
+
+
+                    const response = await fetch(fullApiUrl, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify(requestBody),
+                    });
+
+                     console.log("Response Status:", response.status);
+                     const responseText = await response.text(); // Đọc text trước để debug
+                     console.log("Response Text:", responseText);
+
+                     let data;
+                     try {
+                         data = JSON.parse(responseText); // Parse JSON sau
+                     } catch (e) {
+                         console.error("Failed to parse JSON response:", e);
+                          throw new Error(`Server returned non-JSON response (status ${response.status}): ${responseText.substring(0, 200)}...`); // Hiển thị một phần lỗi nếu không phải JSON
+                     }
+
+
+                    if (!response.ok) {
+                        const errorMessage = data?.error?.message || `HTTP error! status: ${response.status}`;
+                        throw new Error(errorMessage);
+                    }
+
+                    let botResponse = 'Xin lỗi, tôi không thể xử lý yêu cầu này.'; // Mặc định
+                    let blockReason = null;
+
+                     // Kiểm tra promptFeedback trước
+                     if (data.promptFeedback && data.promptFeedback.blockReason) {
+                         blockReason = `Yêu cầu bị chặn vì lý do: ${data.promptFeedback.blockReason}.`;
+                         if(data.promptFeedback.safetyRatings) {
+                             blockReason += " Chi tiết ratings: " + JSON.stringify(data.promptFeedback.safetyRatings);
+                         }
+                         botResponse = blockReason; // Hiển thị lý do chặn
+                         addMessage('bot', botResponse, 'error-message'); // Hiển thị như lỗi
+                     }
+                    // Nếu không bị chặn, kiểm tra candidates
+                    else if (data.candidates && data.candidates.length > 0) {
+                         const candidate = data.candidates[0];
+                         // Kiểm tra finishReason
+                        if(candidate.finishReason && candidate.finishReason !== "STOP") {
+                            botResponse = `Phản hồi kết thúc sớm vì: ${candidate.finishReason}.`;
+                             addMessage('bot', botResponse, 'error-message');
+                        }
+                        // Kiểm tra nội dung
+                        else if (candidate.content && candidate.content.parts && candidate.content.parts.length > 0) {
+                            botResponse = candidate.content.parts[0].text;
+                            addMessage('bot', botResponse);
+                            updateChatHistory('model', botResponse); // Chỉ cập nhật lịch sử nếu có phản hồi hợp lệ
+                        } else {
+                            // Trường hợp có candidate nhưng không có content parts
+                             addMessage('bot', 'Bot đã phản hồi nhưng không có nội dung text.', 'error-message');
+                        }
+
+                    } else {
+                        // Trường hợp không có candidates và không có promptFeedback block
+                         addMessage('bot', 'Không nhận được phản hồi hợp lệ từ bot.', 'error-message');
+                    }
+
+                } catch (error) {
+                    console.error('Error calling Gemini API:', error);
+                    addMessage('bot', `Đã xảy ra lỗi khi gọi API: ${error.message}`, 'error-message');
+                    // Không cập nhật lịch sử bot khi có lỗi
+                } finally {
+                    showLoading(false);
+                }
+            }
+
+            // --- Hàm thêm tin nhắn vào chatbox ---
+            function addMessage(sender, text, type = '') {
+                const messageElement = document.createElement('div');
+                messageElement.classList.add('message');
+
+                // Xác định class dựa trên sender và type
+                if (type === 'error-message') {
+                    messageElement.classList.add('error-message');
+                } else if (type === 'system-message') {
+                     messageElement.classList.add('system-message');
+                } else {
+                    messageElement.classList.add(sender === 'user' ? 'user-message' : 'bot-message');
+                }
+
+                // An toàn cơ bản: Chuyển đổi markdown đơn giản sang HTML (ví dụ: **bold**, *italic*, `code`)
+                 // Chuyển đổi xuống dòng thành <br>
+                let formattedText = text.replace(/\n/g, '<br>');
+                // **bold**
+                formattedText = formattedText.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+                 // *italic* (cẩn thận không xung đột với *)
+                formattedText = formattedText.replace(/(?<!\*)\*(?!\*)(.*?)(?<!\*)\*(?!\*)/g, '<em>$1</em>');
+                 // `code`
+                formattedText = formattedText.replace(/`(.*?)`/g, '<code>$1</code>');
+
+                // Lưu ý: Xử lý Markdown phức tạp hơn (như list, link) cần thư viện chuyên dụng (ví dụ: marked.js)
+                // Hiện tại chỉ render text cơ bản và các định dạng trên để tránh XSS phức tạp
+                messageElement.innerHTML = formattedText; // Sử dụng innerHTML để render bold/italic/code/br
+
+                chatbox.appendChild(messageElement);
+                // Cuộn xuống dưới cùng
+                chatbox.scrollTop = chatbox.scrollHeight;
+            }
+
+             // --- Hàm cập nhật lịch sử chat ---
+            function updateChatHistory(role, text) {
+                 // Gemini API yêu cầu định dạng 'user' và 'model'
+                 const apiRole = (role === 'user') ? 'user' : 'model';
+                 chatHistory.push({ role: apiRole, parts: [{ text: text }] });
+
+                 // Giới hạn độ dài lịch sử để tránh request quá lớn (tùy chọn)
+                 const MAX_HISTORY_LENGTH = 10; // Giữ lại 10 cặp user/model gần nhất
+                 if (chatHistory.length > MAX_HISTORY_LENGTH * 2) {
+                     // Xóa 2 phần tử cũ nhất (1 user, 1 model)
+                     chatHistory.splice(0, chatHistory.length - (MAX_HISTORY_LENGTH * 2));
+                 }
+                console.log("Updated Chat History:", JSON.stringify(chatHistory, null, 2));
+            }
+
+
+            // --- Hàm hiển thị/ẩn loading ---
+            function showLoading(isLoading) {
+                if (isLoading) {
+                    loadingIndicator.classList.remove('hidden');
+                    sendBtn.disabled = true;
+                    userInput.disabled = true;
+                } else {
+                    loadingIndicator.classList.add('hidden');
+                    sendBtn.disabled = false;
+                    userInput.disabled = false;
+                    userInput.focus(); // Focus lại input
+                }
+            }
+
+            // --- Gán sự kiện ---
+            sendBtn.addEventListener('click', sendMessage);
+            userInput.addEventListener('keypress', (event) => {
+                if (event.key === 'Enter' && !event.shiftKey) { // Gửi khi nhấn Enter (không gửi nếu nhấn Shift+Enter)
+                     event.preventDefault(); // Ngăn không xuống dòng trong input
+                    sendMessage();
+                }
+            });
+
+        }); // Kết thúc DOMContentLoaded
+        // JavaScript Code Ends Here
+    </script>
+</body>
+</html>
