@@ -3,9 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Anh yêu cụa embeeeeee</title>
+    <title>Choa ai dô nhớ lụm 5k nhennnnnnnnnnnn</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
     <style>
+        /* --- Paste all the previous CSS here --- */
+        /* (Keep the existing CSS styles as they were) */
         :root {
             --primary: #4361ee;
             --primary-light: #4895ef;
@@ -17,15 +19,15 @@
             --warning: #f8961e;
             --danger: #ef233c;
             --gray: #6c757d;
-            
+
             --user-bubble: linear-gradient(135deg, var(--primary), var(--primary-light));
             --bot-bubble: #ffffff;
             --system-bubble: linear-gradient(135deg, #e2e3e5, #f8f9fa);
-            
+
             --shadow-sm: 0 1px 3px rgba(0,0,0,0.12);
             --shadow-md: 0 4px 6px rgba(0,0,0,0.1);
             --shadow-lg: 0 10px 25px rgba(0,0,0,0.1);
-            
+
             --border-radius: 12px;
             --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
         }
@@ -46,6 +48,133 @@
             padding: 20px;
             color: var(--dark);
             line-height: 1.6;
+        }
+
+        body.dark-mode {
+             --primary: #5a67d8;
+             --primary-light: #7f9cf5;
+             --secondary: #805ad5;
+             --accent: #f687b3;
+             --dark: #f7fafc; /* Text color */
+             --light: #1a202c; /* Background */
+             --bot-bubble: #2d3748;
+             --system-bubble: linear-gradient(135deg, #2d3748, #4a5568);
+             --gray: #a0aec0;
+             background: linear-gradient(135deg, #1a202c, #2d3748);
+             color: var(--dark);
+        }
+        body.dark-mode .chat-container {
+            background: var(--light);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+        }
+         body.dark-mode .header {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: #ffffff; /* Keep header text white */
+        }
+        body.dark-mode .logo {
+             background: var(--dark);
+             color: var(--primary);
+        }
+        body.dark-mode .api-key-section {
+            background: rgba(45, 55, 72, 0.9); /* Darker transparent background */
+        }
+        body.dark-mode .api-key-form {
+            background: #2d3748; /* Darker form background */
+            box-shadow: var(--shadow-md);
+        }
+        body.dark-mode .form-group label {
+             color: var(--dark);
+        }
+        body.dark-mode .form-control {
+            background: #4a5568; /* Darker input background */
+            border-color: #4a5568;
+            color: var(--dark);
+        }
+        body.dark-mode .form-control:focus {
+            border-color: var(--primary);
+            background: #2d3748; /* Darker focus background */
+            box-shadow: 0 0 0 3px rgba(90, 103, 216, 0.3);
+        }
+         body.dark-mode .alert {
+            background: rgba(239, 35, 60, 0.2); /* Darker alert */
+            color: #fed7d7;
+            border-left-color: var(--danger);
+        }
+         body.dark-mode .chat-area {
+            background: var(--light); /* Match container background */
+        }
+        body.dark-mode #chatbox {
+             /* Add subtle pattern for dark mode if desired */
+             background-color: #1a202c;
+             background-image: none; /* Remove light pattern */
+        }
+        body.dark-mode .message {
+             /* Adjust shadows if needed for dark mode */
+        }
+        body.dark-mode .user-message {
+             /* User bubble color remains gradient */
+        }
+        body.dark-mode .bot-message {
+            background: var(--bot-bubble);
+            color: var(--dark);
+            border: 1px solid #4a5568; /* Darker border */
+        }
+        body.dark-mode .error-message {
+            background: rgba(239, 35, 60, 0.2);
+            color: #fed7d7;
+            border-left-color: var(--danger);
+        }
+        body.dark-mode .system-message {
+            background: var(--system-bubble);
+            color: var(--dark);
+        }
+         body.dark-mode .input-area {
+            background: #2d3748; /* Darker input area */
+            border-top: 1px solid #4a5568;
+        }
+        body.dark-mode #userInput {
+            background: #4a5568;
+            border-color: #4a5568;
+            color: var(--dark);
+        }
+         body.dark-mode #userInput:focus {
+            border-color: var(--primary);
+            background: #2d3748;
+            box-shadow: 0 0 0 3px rgba(90, 103, 216, 0.3);
+        }
+        body.dark-mode #sendBtn {
+            /* Button gradient stays */
+        }
+        body.dark-mode #sendBtn:disabled {
+            background: #4a5568; /* Darker disabled background */
+            color: #718096; /* Darker disabled text */
+        }
+        body.dark-mode #loadingIndicator {
+             background: rgba(45, 55, 72, 0.8); /* Darker loading background */
+             color: var(--gray);
+        }
+        body.dark-mode .typing-dot {
+             background: var(--primary); /* Use primary color for dots */
+        }
+         /* Dark Scrollbar */
+        body.dark-mode #chatbox::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.1);
+        }
+        body.dark-mode #chatbox::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, 0.3);
+        }
+        body.dark-mode #chatbox::-webkit-scrollbar-thumb:hover {
+            background: rgba(255, 255, 255, 0.4);
+        }
+        body.dark-mode .fab {
+            /* Adjust FAB colors if needed, default gradient is often fine */
+        }
+        body.dark-mode .tooltip {
+             background: var(--dark); /* Use dark background */
+             color: var(--light); /* Use light text */
+        }
+        body.dark-mode .tooltip::after {
+             border-color: var(--dark) transparent transparent;
         }
 
         .chat-container {
@@ -113,6 +242,7 @@
             margin: 0 auto;
             width: 100%;
             animation: fadeInUp 0.5s ease-out;
+            text-align: center; /* Center button */
         }
 
         @keyframes fadeInUp {
@@ -122,6 +252,7 @@
 
         .form-group {
             margin-bottom: 20px;
+            text-align: left; /* Align label left */
         }
 
         .form-group label {
@@ -160,6 +291,7 @@
             align-items: center;
             justify-content: center;
             gap: 8px;
+            margin-top: 10px; /* Add some space */
         }
 
         .btn-primary {
@@ -177,6 +309,17 @@
             transform: translateY(0);
         }
 
+        .btn-secondary { /* Style for the 'Use Chat' button */
+            background: var(--gray);
+            color: white;
+            margin-left: 10px;
+        }
+         .btn-secondary:hover {
+            background: #5a6268;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(0,0,0, 0.15);
+        }
+
         .alert {
             padding: 16px;
             border-radius: 8px;
@@ -186,14 +329,15 @@
             background: #fff3f3;
             color: var(--danger);
             border-left: 4px solid var(--danger);
-            animation: pulse 2s infinite;
+            /* animation: pulse 2s infinite; */ /* Optional: remove pulse */
+            text-align: left; /* Align text left */
         }
 
-        @keyframes pulse {
+        /* @keyframes pulse {
             0% { box-shadow: 0 0 0 0 rgba(239, 35, 60, 0.2); }
             70% { box-shadow: 0 0 0 10px rgba(239, 35, 60, 0); }
             100% { box-shadow: 0 0 0 0 rgba(239, 35, 60, 0); }
-        }
+        } */
 
         .chat-area {
             display: flex;
@@ -226,6 +370,15 @@
             transform: translateY(10px);
             animation: fadeInUp 0.4s ease-out forwards;
         }
+
+         .message img.thumbnail { /* Style for image thumbnails in chat */
+            max-width: 100%;
+            max-height: 150px;
+            border-radius: 8px;
+            margin-top: 8px;
+            display: block;
+            border: 1px solid rgba(0,0,0,0.1);
+         }
 
         @keyframes fadeIn {
             from { opacity: 0; }
@@ -280,7 +433,7 @@
             border-top: 1px solid #e9ecef;
             display: flex;
             gap: 12px;
-            align-items: center;
+            align-items: flex-end; /* Align items to bottom */
         }
 
         #userInput {
@@ -291,10 +444,11 @@
             font-size: 0.95rem;
             transition: var(--transition);
             resize: none;
-            min-height: 50px;
-            max-height: 120px;
+            min-height: 50px; /* Base height */
+            max-height: 120px; /* Max height before scroll */
             line-height: 1.5;
             background: #f8f9fa;
+            align-self: center; /* Vertically center textarea */
         }
 
         #userInput:focus {
@@ -303,6 +457,42 @@
             box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.2);
             background: white;
         }
+
+        .input-controls { /* Container for buttons */
+             display: flex;
+             gap: 8px;
+             align-items: center; /* Center buttons vertically */
+        }
+
+        .icon-btn { /* Style for upload button */
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: #e9ecef;
+            color: var(--gray);
+            border: none;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .icon-btn:hover {
+            background: #dee2e6;
+            color: var(--dark);
+        }
+         body.dark-mode .icon-btn {
+            background: #4a5568;
+            color: #a0aec0;
+        }
+        body.dark-mode .icon-btn:hover {
+             background: #718096;
+             color: var(--dark);
+        }
+         .icon-btn svg {
+             width: 22px;
+             height: 22px;
+         }
 
         #sendBtn {
             width: 50px;
@@ -317,6 +507,9 @@
             align-items: center;
             justify-content: center;
             box-shadow: 0 4px 8px rgba(67, 97, 238, 0.2);
+            padding: 0; /* Remove default padding */
+            margin: 0; /* Remove default margin */
+            gap: 0; /* Remove default gap */
         }
 
         #sendBtn:hover {
@@ -336,10 +529,49 @@
             cursor: not-allowed;
         }
 
+         body.dark-mode #sendBtn:disabled {
+            background: #4a5568;
+            color: #718096;
+        }
+
         #sendBtn svg {
             width: 22px;
             height: 22px;
         }
+
+         #imagePreviewArea { /* Area below textarea for preview */
+            padding: 0 24px 10px; /* Padding matches input area */
+            background: white;
+            border-top: 1px dashed #e9ecef; /* Separator */
+            display: none; /* Hidden by default */
+            font-size: 0.85rem;
+            color: var(--gray);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+         }
+         body.dark-mode #imagePreviewArea {
+             background: #2d3748;
+             border-top-color: #4a5568;
+             color: var(--gray);
+         }
+
+         #imagePreviewArea img {
+             max-height: 40px;
+             max-width: 60px;
+             border-radius: 4px;
+         }
+         #removeImageBtn {
+             background: none;
+             border: none;
+             color: var(--danger);
+             cursor: pointer;
+             font-size: 1.2rem;
+             padding: 0 5px;
+         }
+         body.dark-mode #removeImageBtn {
+             color: #f687b3; /* Use accent color in dark mode */
+         }
 
         #loadingIndicator {
             padding: 12px;
@@ -407,22 +639,43 @@
 
         /* Responsive Adjustments */
         @media (max-width: 768px) {
+            body {
+                padding: 0;
+            }
             .chat-container {
                 height: 100vh;
                 max-height: none;
                 border-radius: 0;
+                width: 100%;
             }
-            
+
             .message {
                 max-width: 90%;
             }
-            
+
             .api-key-section {
                 padding: 20px;
+                justify-content: flex-start; /* Align top */
+                padding-top: 50px;
             }
-            
+
             .api-key-form {
                 padding: 20px;
+            }
+            .input-area {
+                padding: 12px 16px;
+            }
+            #userInput {
+                padding: 12px 16px;
+                min-height: 46px;
+            }
+            .icon-btn, #sendBtn {
+                width: 46px;
+                height: 46px;
+            }
+             .icon-btn svg, #sendBtn svg {
+                width: 20px;
+                height: 20px;
             }
         }
 
@@ -474,6 +727,14 @@
             pointer-events: none;
             transition: var(--transition);
         }
+         body.dark-mode .tooltip {
+            background: #f7fafc;
+            color: #1a202c;
+        }
+         body.dark-mode .tooltip::after {
+            border-color: #f7fafc transparent transparent;
+        }
+
 
         .tooltip::after {
             content: '';
@@ -490,61 +751,89 @@
             opacity: 1;
             top: -45px;
         }
+
     </style>
 </head>
 <body>
     <div class="chat-container">
         <div class="header">
             <h1>
-                <span class="logo">G</span>
-                Chatbot của embeeeeee
+                <span class="logo">Tuấn</span>
+                Anh yêu cụa embeeeee
             </h1>
+            <button id="manageApiBtn" title="Quản lý API Key" style="background: none; border: none; color: white; cursor: pointer; padding: 5px;">
+                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 16 16">
+                    <path d="M8 1a2 2 0 0 1 2 2v4H6V3a2 2 0 0 1 2-2m3 6V3a3 3 0 0 0-6 0v4a2 2 0 0 0-2 2v5a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2"/>
+                 </svg>
+            </button>
         </div>
 
-        <div id="apiKeySection">
+        <div id="apiKeySection" class="hidden"> <!-- Start hidden -->
             <div class="api-key-form">
                 <div class="form-group">
-                    <label for="apiKey">Nhập cái Key chui đưa óooooo:</label>
-                    <input type="password" id="apiKey" class="form-control" placeholder="Dán API Key của bạn vào đây">
+                    <label for="apiKey">Nhập mã chui choa embeeeeeeee:</label>
+                    <input type="password" id="apiKey" class="form-control" placeholder="Dán API Key của bạn vào đây (Tùy chọn)">
                 </div>
                 <button id="saveApiKeyBtn" class="btn btn-primary">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
-                        <path d="M8 1a2 2 0 0 1 2 2v4H6V3a2 2 0 0 1 2-2zm3 6V3a3 3 0 0 0-6 0v4a2 2 0 0 0-2 2v5a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2z"/>
+                        <path d="M11.25 4v1.5a.75.75 0 0 1-1.5 0V4h-1.5a.75.75 0 0 1 0-1.5h1.5V1a.75.75 0 0 1 1.5 0v1.5h1.5a.75.75 0 0 1 0 1.5zM1.915 12.585A1.5 1.5 0 0 0 3 14h10a1.5 1.5 0 0 0 1.085-2.415l-4.915-6.55A1.5 1.5 0 0 0 8 4.586a1.5 1.5 0 0 0-1.17.449z"/>
                     </svg>
-                    dô huiiiiiiiiiiii
+                    Nhập huiiiiiii
+                </button>
+                 <button id="useChatBtn" class="btn btn-secondary">
+                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                        <path d="M8 15c4.418 0 8-3.134 8-7s-3.582-7-8-7-8 3.134-8 7c0 1.76.743 3.37 1.97 4.6-.097 1.016-.417 2.13-.771 2.966-.079.186.074.394.273.362 2.256-.37 3.597-.938 4.18-1.234A9 9 0 0 0 8 15"/>
+                    </svg>
+                    Dô huiiiiiiii
                 </button>
                 <div class="alert">
-                    <strong>Nhúuuuu:</strong> Hăm được share choa ai nhoaaaaaaaa
+                    <strong>Nhúuuuuuu:</strong> Ăn đoànnnnnnnnnnnnnnnn
                 </div>
             </div>
         </div>
 
-        <div class="chat-area hidden">
+        <div class="chat-area"> <!-- Start visible -->
             <div id="chatbox"></div>
+             <div id="imagePreviewArea" class="hidden"> <!-- Image preview DIV -->
+                <img id="previewImage" src="#" alt="Image preview"/>
+                <span id="previewText">Chọn ảnh đê embeeeeeee:</span>
+                <span id="previewFilename">filename.jpg</span>
+                <button id="removeImageBtn" title="Gỡ ảnh">×</button>
+            </div>
             <div id="loadingIndicator" class="hidden">
                 <div class="typing-indicator">
                     <span class="typing-dot"></span>
                     <span class="typing-dot"></span>
                     <span class="typing-dot"></span>
-                    <span>Chừi chừi chui đang si nghĩiiiiiiiiii...</span>
+                    <span>Chừi chừi chui đang si nghĩiiiiiiiii...</span>
                 </div>
             </div>
             <div class="input-area">
-                <textarea id="userInput" placeholder="Chui choa phép embe noái óoooooo..."></textarea>
-                <button id="sendBtn">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
-                        <path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/>
+                 <input type="file" id="imageInput" accept="image/*" style="display: none;"> <!-- Hidden file input -->
+                 <button class="icon-btn" id="uploadBtn" title="Tải ảnh lên">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                        <path d="M6.002 5.5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0"/>
+                        <path d="M2.002 1a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V3a2 2 0 0 0-2-2zm12 1a1 1 0 0 1 1 1v6.5l-3.777-1.947a.5.5 0 0 0-.577.093l-3.71 3.71-2.66-1.772a.5.5 0 0 0-.63.062L1.002 12V3a1 1 0 0 1 1-1z"/>
                     </svg>
-                </button>
+                 </button>
+                <textarea id="userInput" placeholder="Chui choa phép embe noáiiiiiiiiiii..." rows="1"></textarea> <!-- Start with 1 row -->
+                <div class="input-controls">
+                    <button id="sendBtn">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/>
+                        </svg>
+                    </button>
+                </div>
             </div>
         </div>
     </div>
 
     <div class="fab" id="themeToggle">
+        <!-- SVG will be updated by JS -->
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
             <path d="M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446a9 9 0 1 1-8.313-12.454z"/>
         </svg>
-        <span class="tooltip">Đổi giao diện</span>
+        <span class="tooltip">Đổi màu đeeeeeeeeee</span>
     </div>
 
     <script>
@@ -552,6 +841,8 @@
             // DOM Elements
             const apiKeyInput = document.getElementById('apiKey');
             const saveApiKeyBtn = document.getElementById('saveApiKeyBtn');
+            const useChatBtn = document.getElementById('useChatBtn'); // Button to skip API key entry
+            const manageApiBtn = document.getElementById('manageApiBtn'); // Button in header
             const apiKeySection = document.getElementById('apiKeySection');
             const chatbox = document.getElementById('chatbox');
             const userInput = document.getElementById('userInput');
@@ -559,172 +850,402 @@
             const chatArea = document.querySelector('.chat-area');
             const loadingIndicator = document.getElementById('loadingIndicator');
             const themeToggle = document.getElementById('themeToggle');
+            const uploadBtn = document.getElementById('uploadBtn');
+            const imageInput = document.getElementById('imageInput');
+            const imagePreviewArea = document.getElementById('imagePreviewArea');
+            const previewImage = document.getElementById('previewImage');
+            const previewFilename = document.getElementById('previewFilename');
+            const removeImageBtn = document.getElementById('removeImageBtn');
 
             // Configuration
             let apiKey = localStorage.getItem('geminiApiKey');
-            const MODEL_NAME = 'gemini-1.5-pro-latest';
+            // Use a model that supports multimodal input (text and image)
+            const MODEL_NAME = 'gemini-1.5-flash-latest'; // Changed to Flash
             const API_BASE_URL = 'https://generativelanguage.googleapis.com/v1beta/models/';
             let chatHistory = [];
-            let isDarkMode = false;
+            let isDarkMode = localStorage.getItem('darkMode') === 'true';
+            let currentImageData = null; // To store { mimeType, data (base64) }
 
             // Initialize
-            if (apiKey) {
+            applyTheme(); // Apply saved theme on load
+
+            if (!apiKey) {
+                showApiKeyInput(); // Show API key section if no key is found
+            } else {
                 showChatInterface();
-                addMessage('bot', 'Nhaooooooooooooo', 'system-message');
+                // Optionally add a welcome message if desired
+                // addMessage('bot', 'Xin chào! Tôi là Gemini Flash. Gửi tin nhắn hoặc tải ảnh lên.', 'system-message');
             }
+
+             // Check if chat history exists in localStorage
+            const savedHistory = localStorage.getItem('geminiChatHistory');
+            if (savedHistory) {
+                try {
+                    chatHistory = JSON.parse(savedHistory);
+                    // Re-render history
+                    chatHistory.forEach(msg => {
+                        // Simple re-render, doesn't handle images in history perfectly visually
+                         if (msg.role === 'user') {
+                            const textPart = msg.parts.find(p => p.text)?.text || '';
+                             const imagePart = msg.parts.find(p => p.inline_data);
+                             addMessage('user', textPart + (imagePart ? ' [Đã gửi ảnh]' : ''));
+                         } else if (msg.role === 'model') {
+                            const textPart = msg.parts.find(p => p.text)?.text || '';
+                            addMessage('bot', textPart);
+                         }
+                    });
+                    scrollToBottom(); // Scroll after loading history
+                } catch (e) {
+                    console.error("Could not parse chat history:", e);
+                    localStorage.removeItem('geminiChatHistory'); // Clear corrupted history
+                    chatHistory = [];
+                }
+            }
+
 
             // Event Listeners
             saveApiKeyBtn.addEventListener('click', saveApiKey);
+            useChatBtn.addEventListener('click', () => { // Allow entering chat without saving key
+                 showChatInterface();
+                 if (!apiKey) {
+                     addMessage('bot', 'Áaaaaaaaaaaaa.', 'error-message');
+                 }
+            });
+             manageApiBtn.addEventListener('click', showApiKeyInput); // Show API key section again
+
             sendBtn.addEventListener('click', sendMessage);
             userInput.addEventListener('keydown', (e) => {
                 if (e.key === 'Enter' && !e.shiftKey) {
                     e.preventDefault();
                     sendMessage();
                 }
+                 autoResizeTextarea(userInput); // Resize on keydown too
             });
+             userInput.addEventListener('input', () => autoResizeTextarea(userInput)); // Resize on input
+
             themeToggle.addEventListener('click', toggleTheme);
 
-            // Functions
+            // Image Upload Listeners
+            uploadBtn.addEventListener('click', () => imageInput.click());
+            imageInput.addEventListener('change', handleImageUpload);
+            removeImageBtn.addEventListener('click', removeImage);
+
+            // --- Functions ---
+
             function saveApiKey() {
                 const key = apiKeyInput.value.trim();
                 if (key) {
                     apiKey = key;
                     localStorage.setItem('geminiApiKey', key);
                     showChatInterface();
-                    addMessage('bot', 'API Key đã được lưu. Bạn có thể bắt đầu trò chuyện!', 'system-message');
-                    chatHistory = [];
+                    addMessage('bot', '1 2 3 Doooooooooo!', 'system-message');
+                    // Consider clearing history on new key? Optional.
+                    // chatHistory = [];
+                    // chatbox.innerHTML = '';
+                    // localStorage.removeItem('geminiChatHistory');
                 } else {
-                    alert('Vui lòng nhập API Key hợp lệ.');
+                     // Allow saving an empty key to clear it
+                     apiKey = null;
+                     localStorage.removeItem('geminiApiKey');
+                     addMessage('bot', 'Xóa ùi hẻeeeeeeeeee.', 'system-message');
+                     // Keep chat interface visible or hide? User preference. Let's keep it visible.
+                     // showApiKeyInput(); // Optionally force back to API input
                 }
             }
 
-            async function sendMessage() {
-                const messageText = userInput.value.trim();
-                if (!messageText) return;
+             function handleImageUpload(event) {
+                const file = event.target.files[0];
+                if (!file) return;
 
-                if (!apiKey) {
-                    addMessage('bot', 'Lỗi: API Key chưa được thiết lập.', 'error-message');
-                    showApiKeyInput();
+                // Basic validation (optional: add size limit)
+                if (!file.type.startsWith('image/')) {
+                    addMessage('bot', 'Chọn lợi i bị lũi ùi chùiiiiiiiii.', 'error-message');
                     return;
                 }
 
-                addMessage('user', messageText);
-                updateChatHistory('user', messageText);
+                const reader = new FileReader();
+                reader.onloadend = () => {
+                    const base64String = reader.result.split(',')[1]; // Get base64 part
+                    currentImageData = {
+                        mimeType: file.type,
+                        data: base64String
+                    };
+                    // Show preview
+                    previewImage.src = reader.result; // Show thumbnail
+                    previewFilename.textContent = file.name.length > 20 ? file.name.substring(0, 17) + '...' : file.name;
+                    imagePreviewArea.classList.remove('hidden');
+                    adjustInputAreaPadding(true); // Add padding below input
+                };
+                reader.onerror = (error) => {
+                    console.error('Error reading file:', error);
+                    addMessage('bot', 'Đọc như hăm đọc nhunnnnnnnn.', 'error-message');
+                    currentImageData = null;
+                     imagePreviewArea.classList.add('hidden');
+                     adjustInputAreaPadding(false);
+                };
+                reader.readAsDataURL(file);
+
+                // Reset file input to allow selecting the same file again
+                imageInput.value = '';
+            }
+
+            function removeImage() {
+                currentImageData = null;
+                imagePreviewArea.classList.add('hidden');
+                previewImage.src = '#'; // Clear preview src
+                adjustInputAreaPadding(false); // Remove extra padding
+            }
+
+             function adjustInputAreaPadding(hasImage) {
+                 // This function is primarily to manage layout shifts
+                 // If the preview area takes space, the chatbox needs less space
+                 // We don't need complex adjustments if the preview is outside the scroll area
+                 // Let's keep it simple unless visual issues arise
+             }
+
+            async function sendMessage() {
+                const messageText = userInput.value.trim();
+                if (!messageText && !currentImageData) return; // Need text or image
+
+                if (!apiKey) {
+                    addMessage('bot', 'Nhập Lợi APIIIIIIIII.', 'error-message');
+                    showApiKeyInput(); // Force API key input
+                    return;
+                }
+
+                // Construct user message parts
+                const userParts = [];
+                if (messageText) {
+                    userParts.push({ text: messageText });
+                }
+                let displayMessage = messageText; // For showing in chatbox
+
+                 if (currentImageData) {
+                    userParts.push({
+                        inline_data: {
+                            mime_type: currentImageData.mimeType,
+                            data: currentImageData.data
+                        }
+                    });
+                     // Add visual indicator for the image in the user's message bubble
+                     displayMessage += ` <img src="data:${currentImageData.mimeType};base64,${currentImageData.data}" alt="Uploaded Image" class="thumbnail">`;
+                     // Alternative: just text -> displayMessage += "\n[Đã gửi ảnh]";
+                }
+
+
+                 // Add user message visually (with image if present)
+                addMessage('user', displayMessage);
+
+                // Update history *before* clearing image data
+                updateChatHistory('user', userParts);
+
+                // Clear input and image *after* processing
                 userInput.value = '';
+                autoResizeTextarea(userInput); // Reset textarea height
+                removeImage(); // Clear stored image data and hide preview
+
                 showLoading(true);
 
                 try {
+                     const generationConfig = {
+                         // Adjust temperature (creativity vs factual) - 0.0 to 1.0
+                         temperature: 0.7,
+                         // Adjust topP (nucleus sampling) - 0.0 to 1.0
+                         topP: 0.95,
+                          // Adjust topK (token sampling)
+                         topK: 40,
+                          // Max output tokens (adjust based on model/needs)
+                         maxOutputTokens: 2048,
+                     };
+
+                     const safetySettings = [ // Example: block most harmful content
+                        { category: "HARM_CATEGORY_HARASSMENT", threshold: "BLOCK_MEDIUM_AND_ABOVE" },
+                        { category: "HARM_CATEGORY_HATE_SPEECH", threshold: "BLOCK_MEDIUM_AND_ABOVE" },
+                        { category: "HARM_CATEGORY_SEXUALLY_EXPLICIT", threshold: "BLOCK_MEDIUM_AND_ABOVE" },
+                        { category: "HARM_CATEGORY_DANGEROUS_CONTENT", threshold: "BLOCK_MEDIUM_AND_ABOVE" }
+                    ];
+
+
                     const response = await fetch(`${API_BASE_URL}${MODEL_NAME}:generateContent?key=${apiKey}`, {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify({ contents: chatHistory })
+                        body: JSON.stringify({
+                             contents: chatHistory,
+                             generationConfig: generationConfig, // Add config
+                             safetySettings: safetySettings // Add safety settings
+                         })
                     });
 
                     const data = await response.json();
+                    console.log("API Response:", data); // Log for debugging
 
                     if (!response.ok) {
-                        throw new Error(data?.error?.message || `Lỗi: ${response.status}`);
-                    }
-
-                    if (data.promptFeedback?.blockReason) {
-                        const blockReason = `Yêu cầu bị chặn: ${data.promptFeedback.blockReason}`;
+                         const errorMsg = data?.error?.message || `Lỗi HTTP: ${response.status}`;
+                         // Check for specific API key errors
+                         if (response.status === 400 && errorMsg.toLowerCase().includes('api key not valid')) {
+                              addMessage('bot', `Lỗi: API Key không hợp lệ. Vui lòng kiểm tra lại. (${errorMsg})`, 'error-message');
+                              showApiKeyInput(); // Prompt for key again
+                         } else if (response.status === 429) { // Rate limit
+                             addMessage('bot', `Lỗi: Vượt quá giới hạn yêu cầu API. Vui lòng thử lại sau. (${errorMsg})`, 'error-message');
+                         }
+                         else {
+                             throw new Error(errorMsg);
+                         }
+                    } else if (data.promptFeedback?.blockReason) {
+                        const blockReason = `Yêu cầu hoặc phản hồi bị chặn: ${data.promptFeedback.blockReason}. Lý do chi tiết: ${data.promptFeedback.safetyRatings?.map(r => `${r.category}: ${r.probability}`).join(', ') || 'Không có'}`;
                         addMessage('bot', blockReason, 'error-message');
+                        // Don't add blocked response to history
                     } else if (data.candidates?.[0]?.content?.parts?.[0]?.text) {
-                        const botResponse = data.candidates[0].content.parts[0].text;
+                        const botResponse = data.candidates[0].content.parts.map(part => part.text).join(""); // Join if multiple text parts
                         addMessage('bot', botResponse);
-                        updateChatHistory('model', botResponse);
+                        updateChatHistory('model', [{ text: botResponse }]); // Add bot response to history
                     } else {
-                        addMessage('bot', 'Không nhận được phản hồi hợp lệ từ bot.', 'error-message');
+                        console.warn("Unexpected response structure:", data);
+                        addMessage('bot', 'Mất kết núiiiiiiiiii', 'error-message');
+                         // Still add a placeholder to history if needed? Maybe not.
                     }
                 } catch (error) {
-                    console.error('Error:', error);
-                    addMessage('bot', `Lỗi: ${error.message}`, 'error-message');
+                    console.error('Error calling Gemini API:', error);
+                    addMessage('bot', `Lỗi ùiiiiiiiiiiiii: ${error.message}`, 'error-message');
                 } finally {
                     showLoading(false);
+                     saveChatHistoryToLocalStorage(); // Save history after interaction
                 }
             }
 
-            function addMessage(sender, text, type = '') {
+             function addMessage(sender, text, type = '') {
                 const messageElement = document.createElement('div');
                 messageElement.classList.add('message');
-                
-                if (type === 'error-message') {
-                    messageElement.classList.add('error-message');
-                } else if (type === 'system-message') {
-                    messageElement.classList.add('system-message');
-                } else {
-                    messageElement.classList.add(sender === 'user' ? 'user-message' : 'bot-message');
-                }
 
-                // Format text with basic markdown
+                let messageClass = '';
+                if (type === 'error-message') messageClass = 'error-message';
+                else if (type === 'system-message') messageClass = 'system-message';
+                else messageClass = sender === 'user' ? 'user-message' : 'bot-message';
+                messageElement.classList.add(messageClass);
+
+                // Basic Markdown and HTML handling (Improved slightly)
+                // WARNING: Setting innerHTML from user/API content can be risky if not sanitized.
+                // For a simple demo, this is okay, but real apps need sanitization libraries (like DOMPurify).
                 let formattedText = text
-                    .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
-                    .replace(/\*(.*?)\*/g, '<em>$1</em>')
-                    .replace(/`(.*?)`/g, '<code>$1</code>')
-                    .replace(/\n/g, '<br>');
+                    .replace(/</g, "<") // Basic HTML escape first
+                    .replace(/>/g, ">")
+                    .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>') // Bold
+                    .replace(/\*(.*?)\*/g, '<em>$1</em>')     // Italics
+                    .replace(/`(.*?)`/g, '<code>$1</code>')   // Inline code
+                    .replace(/```([\s\S]*?)```/g, '<pre><code>$1</code></pre>') // Code blocks
+                    .replace(/^(#{1,6})\s+(.*)/gm, (match, p1, p2) => `<h${p1.length}>${p2}</h${p1.length}>`) // Headers
+                    .replace(/^- (.*)/gm, '<ul><li>$1</li></ul>') // Basic lists (needs improvement for multi-items)
+                    .replace(/\n/g, '<br>'); // Newlines
 
-                messageElement.innerHTML = formattedText;
+                 // Handle the image thumbnail added to the user message
+                 if (sender === 'user' && text.includes('<img src="data:image')) {
+                     // The replace above might have escaped the img tag, restore it
+                     // This is a bit hacky, proper DOM manipulation or a templating engine is better
+                      formattedText = formattedText.replace(/<img src="data:image(.*?)>/g, '<img src="data:image$1>');
+                 }
+
+
+                messageElement.innerHTML = formattedText; // Use the formatted text
                 chatbox.appendChild(messageElement);
-                
-                // Scroll to bottom with smooth behavior
-                chatbox.scrollTo({
-                    top: chatbox.scrollHeight,
-                    behavior: 'smooth'
-                });
+                scrollToBottom();
             }
 
-            function updateChatHistory(role, text) {
-                chatHistory.push({ role, parts: [{ text }] });
-                
-                // Keep history manageable
-                if (chatHistory.length > 20) {
-                    chatHistory = chatHistory.slice(-20);
-                }
-            }
+            function updateChatHistory(role, parts) {
+                 // Gemini expects history as {role: 'user'/'model', parts: [{text: "..."}, {inline_data: {...}}]}
+                 chatHistory.push({ role, parts });
+
+                 // Keep history manageable (e.g., last 20 turns = 40 messages)
+                 const maxHistoryLength = 40; // Adjust as needed
+                 if (chatHistory.length > maxHistoryLength) {
+                     // Remove the oldest *pair* (user + model) to keep context logical
+                     chatHistory = chatHistory.slice(chatHistory.length - maxHistoryLength);
+                 }
+             }
+
+            function saveChatHistoryToLocalStorage() {
+                 try {
+                     localStorage.setItem('geminiChatHistory', JSON.stringify(chatHistory));
+                 } catch (e) {
+                     console.error("Could not save chat history:", e);
+                     // Maybe notify user or clear old history if storage is full
+                 }
+             }
+
 
             function showLoading(show) {
-                if (show) {
-                    loadingIndicator.classList.remove('hidden');
-                    sendBtn.disabled = true;
-                    userInput.disabled = true;
-                } else {
-                    loadingIndicator.classList.add('hidden');
-                    sendBtn.disabled = false;
-                    userInput.disabled = false;
+                loadingIndicator.classList.toggle('hidden', !show);
+                sendBtn.disabled = show;
+                userInput.disabled = show;
+                uploadBtn.disabled = show; // Disable upload button too
+                 if (!show) {
                     userInput.focus();
                 }
             }
 
             function showChatInterface() {
                 apiKeySection.classList.add('hidden');
-                chatArea.classList.remove('hidden');
+                chatArea.classList.remove('hidden'); // Show chat area
+                // Make sure input area is visible if chat area is shown
+                document.querySelector('.input-area').classList.remove('hidden');
+                if (chatHistory.length === 0 && apiKey) { // Only add welcome if new chat and key exists
+                   // addMessage('bot', `Xin chào! Đã kết nối với ${MODEL_NAME}.`, 'system-message');
+                } else if (chatHistory.length > 0) {
+                    scrollToBottom(); // Scroll if loading history
+                }
             }
 
             function showApiKeyInput() {
                 apiKeySection.classList.remove('hidden');
-                chatArea.classList.add('hidden');
+                chatArea.classList.add('hidden'); // Hide chat area
+                apiKeyInput.value = apiKey || ''; // Pre-fill if key exists
+            }
+
+            function applyTheme() {
+                document.body.classList.toggle('dark-mode', isDarkMode);
+                updateThemeIcon();
             }
 
             function toggleTheme() {
                 isDarkMode = !isDarkMode;
-                document.body.classList.toggle('dark-mode', isDarkMode);
-                
-                // Update theme toggle icon
-                const icon = themeToggle.querySelector('svg');
+                localStorage.setItem('darkMode', isDarkMode);
+                applyTheme();
+            }
+
+            function updateThemeIcon() {
+                 const icon = themeToggle.querySelector('svg');
+                 const tooltip = themeToggle.querySelector('.tooltip');
                 if (isDarkMode) {
-                    icon.innerHTML = '<path d="M12 3v.01M12 12v.01M12 21v.01M12 18a6 6 0 0 0 0-12 6 6 0 0 0 0 12z"/>';
+                     // Moon Icon (Example)
+                    icon.innerHTML = '<path d="M21.752 15.002A9.72 9.72 0 0 1 18 15.75c-5.385 0-9.75-4.365-9.75-9.75 0-1.33.266-2.597.748-3.752A9.753 9.753 0 0 0 3 10.25c0 5.385 4.365 9.75 9.75 9.75 1.657 0 3.21-.418 4.65-1.148a.75.75 0 0 1 .652 1.297A11.2 11.2 0 0 1 12.75 22C6.8 22 2.25 17.454 2.25 11.5S6.8 1 12.75 1c.85 0 1.675.105 2.465.301a.75.75 0 0 1-.6 1.38 9.7 9.7 0 0 0-1.865-.301C7.608 2.35 3.75 6.208 3.75 10.75c0 4.078 2.912 7.45 6.716 8.152a.75.75 0 0 1 .434.698Z"/>';
                     themeToggle.style.background = 'linear-gradient(135deg, #6c757d, #495057)';
+                    tooltip.textContent = 'Đổi sang Sáng';
                 } else {
-                    icon.innerHTML = '<path d="M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446a9 9 0 1 1-8.313-12.454z"/>';
+                    // Sun Icon (Example)
+                    icon.innerHTML = '<path d="M12 18a6 6 0 1 0 0-12 6 6 0 0 0 0 12ZM12 3.75V1.5a.75.75 0 0 1 1.5 0v2.25a.75.75 0 0 1-1.5 0ZM20.25 12h2.25a.75.75 0 0 1 0 1.5h-2.25a.75.75 0 0 1 0-1.5ZM12 20.25v2.25a.75.75 0 0 1-1.5 0v-2.25a.75.75 0 0 1 1.5 0ZM3.75 12H1.5a.75.75 0 0 1 0-1.5h2.25a.75.75 0 0 1 0 1.5ZM18.3 5.7a.75.75 0 0 1 1.06 1.06l-1.591 1.59a.75.75 0 1 1-1.06-1.06l1.59-1.59ZM5.7 18.3a.75.75 0 0 1 1.06-1.06l1.59 1.59a.75.75 0 0 1-1.06 1.06l-1.59-1.59ZM18.3 18.3a.75.75 0 0 1-1.06 1.06l-1.59-1.59a.75.75 0 1 1 1.06-1.06l1.59 1.59ZM5.7 5.7a.75.75 0 0 1 1.06-1.06l1.59 1.59a.75.75 0 0 1-1.06 1.06L5.701 5.7Z"/>';
                     themeToggle.style.background = 'linear-gradient(135deg, var(--primary), var(--secondary))';
+                     tooltip.textContent = 'Đổi sang Tối';
                 }
             }
 
-            // Auto-resize textarea
-            userInput.addEventListener('input', function() {
-                this.style.height = 'auto';
-                this.style.height = (this.scrollHeight) + 'px';
-            });
+             function autoResizeTextarea(element) {
+                // Reset height to auto to calculate scrollHeight correctly
+                element.style.height = 'auto';
+                // Set height to scrollHeight, but not exceeding max-height
+                const maxHeight = parseInt(window.getComputedStyle(element).maxHeight, 10);
+                 const newHeight = Math.min(element.scrollHeight, maxHeight);
+                element.style.height = newHeight + 'px';
+             }
+
+             function scrollToBottom() {
+                // Use requestAnimationFrame for smoother scrolling after DOM updates
+                requestAnimationFrame(() => {
+                    chatbox.scrollTo({
+                        top: chatbox.scrollHeight,
+                        behavior: 'smooth'
+                    });
+                });
+            }
+
         });
     </script>
 </body>
