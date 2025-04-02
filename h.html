@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Choa ai dô nhớ lụm 5k nhennnnnnnnnnnn</title>
+    <!-- Make title more descriptive -->
+    <title>Tuấn AI Chat - Giao Diện Chat Thông Minh</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
     <style>
         /* --- Paste all the previous CSS here --- */
@@ -176,6 +177,32 @@
         body.dark-mode .tooltip::after {
              border-color: var(--dark) transparent transparent;
         }
+         /* Style for TTS button in dark mode */
+        body.dark-mode .tts-btn {
+            color: #a0aec0;
+        }
+         body.dark-mode .tts-btn:hover {
+             color: #cbd5e0;
+             background-color: rgba(255, 255, 255, 0.1);
+        }
+         /* Style for Record button in dark mode */
+        body.dark-mode #recordBtn {
+            background: #4a5568;
+            color: #a0aec0;
+        }
+        body.dark-mode #recordBtn:hover:not(:disabled) {
+             background: #718096;
+             color: var(--dark);
+        }
+         body.dark-mode #recordBtn.recording {
+            background: var(--danger);
+            color: white;
+        }
+        body.dark-mode #recordBtn:disabled {
+             background: #2d3748;
+             color: #718096;
+             cursor: not-allowed;
+         }
 
         .chat-container {
             width: 100%;
@@ -361,7 +388,7 @@
             border-radius: 18px;
             max-width: 80%;
             word-wrap: break-word;
-            position: relative;
+            position: relative; /* Needed for TTS button positioning */
             animation: fadeIn 0.4s ease-out;
             box-shadow: var(--shadow-sm);
             line-height: 1.5;
@@ -379,6 +406,34 @@
             display: block;
             border: 1px solid rgba(0,0,0,0.1);
          }
+
+         /* NEW: Style for TTS button */
+        .tts-btn {
+            background: none;
+            border: none;
+            color: var(--gray);
+            cursor: pointer;
+            padding: 4px;
+            margin-left: 8px;
+            font-size: 1rem; /* Adjust size */
+            line-height: 1;
+            vertical-align: middle; /* Align with text */
+            border-radius: 4px;
+            transition: var(--transition);
+            display: inline-flex; /* Use inline-flex */
+            align-items: center;
+            justify-content: center;
+            opacity: 0.7; /* Slightly transparent */
+        }
+         .tts-btn:hover {
+            color: var(--primary);
+            background-color: rgba(0, 0, 0, 0.05);
+            opacity: 1;
+        }
+         .tts-btn svg {
+            width: 16px;
+            height: 16px;
+        }
 
         @keyframes fadeIn {
             from { opacity: 0; }
@@ -464,7 +519,8 @@
              align-items: center; /* Center buttons vertically */
         }
 
-        .icon-btn { /* Style for upload button */
+        /* Shared style for icon buttons */
+        .icon-btn {
             width: 50px;
             height: 50px;
             border-radius: 50%;
@@ -476,23 +532,34 @@
             display: flex;
             align-items: center;
             justify-content: center;
+            padding: 0; /* Ensure no extra padding */
+            flex-shrink: 0; /* Prevent shrinking */
         }
-        .icon-btn:hover {
+        .icon-btn:hover:not(:disabled) {
             background: #dee2e6;
             color: var(--dark);
-        }
-         body.dark-mode .icon-btn {
-            background: #4a5568;
-            color: #a0aec0;
-        }
-        body.dark-mode .icon-btn:hover {
-             background: #718096;
-             color: var(--dark);
         }
          .icon-btn svg {
              width: 22px;
              height: 22px;
          }
+         .icon-btn:disabled {
+             background: #f8f9fa;
+             color: #adb5bd;
+             cursor: not-allowed;
+         }
+         /* Specific style for recording state */
+         #recordBtn.recording {
+             background: var(--danger);
+             color: white;
+             animation: pulseRecord 1.5s infinite ease-in-out;
+         }
+        @keyframes pulseRecord {
+             0% { box-shadow: 0 0 0 0 rgba(239, 35, 60, 0.7); }
+             70% { box-shadow: 0 0 0 8px rgba(239, 35, 60, 0); }
+             100% { box-shadow: 0 0 0 0 rgba(239, 35, 60, 0); }
+         }
+
 
         #sendBtn {
             width: 50px;
@@ -510,14 +577,15 @@
             padding: 0; /* Remove default padding */
             margin: 0; /* Remove default margin */
             gap: 0; /* Remove default gap */
+            flex-shrink: 0; /* Prevent shrinking */
         }
 
-        #sendBtn:hover {
+        #sendBtn:hover:not(:disabled) {
             transform: translateY(-2px) scale(1.05);
             box-shadow: 0 6px 12px rgba(67, 97, 238, 0.25);
         }
 
-        #sendBtn:active {
+        #sendBtn:active:not(:disabled) {
             transform: translateY(0) scale(0.98);
         }
 
@@ -664,11 +732,13 @@
             }
             .input-area {
                 padding: 12px 16px;
+                gap: 8px; /* Reduce gap on smaller screens */
             }
             #userInput {
                 padding: 12px 16px;
                 min-height: 46px;
             }
+            /* Adjust button sizes for mobile */
             .icon-btn, #sendBtn {
                 width: 46px;
                 height: 46px;
@@ -810,13 +880,23 @@
             </div>
             <div class="input-area">
                  <input type="file" id="imageInput" accept="image/*" style="display: none;"> <!-- Hidden file input -->
-                 <button class="icon-btn" id="uploadBtn" title="Tải ảnh lên">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
-                        <path d="M6.002 5.5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0"/>
-                        <path d="M2.002 1a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V3a2 2 0 0 0-2-2zm12 1a1 1 0 0 1 1 1v6.5l-3.777-1.947a.5.5 0 0 0-.577.093l-3.71 3.71-2.66-1.772a.5.5 0 0 0-.63.062L1.002 12V3a1 1 0 0 1 1-1z"/>
-                    </svg>
-                 </button>
-                <textarea id="userInput" placeholder="Chui choa phép embe noáiiiiiiiiiii..." rows="1"></textarea> <!-- Start with 1 row -->
+                 <!-- Buttons container -->
+                 <div class="input-controls">
+                     <button class="icon-btn" id="uploadBtn" title="Tải ảnh lên">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                            <path d="M6.002 5.5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0"/>
+                            <path d="M2.002 1a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V3a2 2 0 0 0-2-2zm12 1a1 1 0 0 1 1 1v6.5l-3.777-1.947a.5.5 0 0 0-.577.093l-3.71 3.71-2.66-1.772a.5.5 0 0 0-.63.062L1.002 12V3a1 1 0 0 1 1-1z"/>
+                        </svg>
+                     </button>
+                      <!-- NEW: Record Button -->
+                     <button class="icon-btn" id="recordBtn" title="Ghi âm giọng nói">
+                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-mic-fill" viewBox="0 0 16 16">
+                           <path d="M5 3a3 3 0 0 1 6 0v5a3 3 0 0 1-6 0z"/>
+                           <path d="M3.5 6.5A.5.5 0 0 1 4 7v1a4 4 0 0 0 8 0V7a.5.5 0 0 1 1 0v1a5 5 0 0 1-4.5 4.975V15h3a.5.5 0 0 1 0 1h-7a.5.5 0 0 1 0-1h3v-2.025A5 5 0 0 1 3 8V7a.5.5 0 0 1 .5-.5"/>
+                         </svg>
+                      </button>
+                 </div>
+                <textarea id="userInput" placeholder="Chui choa phép embe noáiiiiiiiiiii... Hoặc nhấn Mic" rows="1"></textarea> <!-- Start with 1 row -->
                 <div class="input-controls">
                     <button id="sendBtn">
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
@@ -841,8 +921,8 @@
             // DOM Elements
             const apiKeyInput = document.getElementById('apiKey');
             const saveApiKeyBtn = document.getElementById('saveApiKeyBtn');
-            const useChatBtn = document.getElementById('useChatBtn'); // Button to skip API key entry
-            const manageApiBtn = document.getElementById('manageApiBtn'); // Button in header
+            const useChatBtn = document.getElementById('useChatBtn');
+            const manageApiBtn = document.getElementById('manageApiBtn');
             const apiKeySection = document.getElementById('apiKeySection');
             const chatbox = document.getElementById('chatbox');
             const userInput = document.getElementById('userInput');
@@ -856,79 +936,149 @@
             const previewImage = document.getElementById('previewImage');
             const previewFilename = document.getElementById('previewFilename');
             const removeImageBtn = document.getElementById('removeImageBtn');
+            // NEW: Record button element
+            const recordBtn = document.getElementById('recordBtn');
 
             // Configuration
             let apiKey = localStorage.getItem('geminiApiKey');
-            // Use a model that supports multimodal input (text and image)
-            const MODEL_NAME = 'gemini-1.5-flash-latest'; // Changed to Flash
+            const MODEL_NAME = 'gemini-1.5-flash-latest';
             const API_BASE_URL = 'https://generativelanguage.googleapis.com/v1beta/models/';
             let chatHistory = [];
             let isDarkMode = localStorage.getItem('darkMode') === 'true';
-            let currentImageData = null; // To store { mimeType, data (base64) }
+            let currentImageData = null;
 
-            // Initialize
-            applyTheme(); // Apply saved theme on load
+            // NEW: Speech Recognition & Synthesis Setup
+            const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+            const SpeechSynthesis = window.speechSynthesis;
+            let recognition = null;
+            let isRecording = false;
 
-            if (!apiKey) {
-                showApiKeyInput(); // Show API key section if no key is found
+            // Check API support and initialize
+            if (SpeechRecognition) {
+                recognition = new SpeechRecognition();
+                recognition.continuous = false; // Stop after first pause
+                recognition.lang = 'vi-VN';     // Set language to Vietnamese
+                recognition.interimResults = false; // We only want final results
+                recognition.maxAlternatives = 1;
+
+                recognition.onstart = () => {
+                    isRecording = true;
+                    recordBtn.classList.add('recording');
+                    recordBtn.title = "Dừng ghi âm";
+                    userInput.placeholder = "Đang nghe embe nói..."; // Update placeholder
+                    // Optionally disable send button while recording?
+                };
+
+                recognition.onresult = (event) => {
+                    const transcript = event.results[0][0].transcript;
+                    userInput.value += (userInput.value ? ' ' : '') + transcript; // Append result
+                    autoResizeTextarea(userInput); // Resize textarea if needed
+                };
+
+                recognition.onerror = (event) => {
+                    console.error('Speech recognition error:', event.error);
+                    let errorMsg = 'Lỗi ghi âm: ';
+                    switch (event.error) {
+                        case 'no-speech': errorMsg += 'Hông nghe nói gì hết trơn á.'; break;
+                        case 'audio-capture': errorMsg += 'Hông bắt được mic.'; break;
+                        case 'not-allowed': errorMsg += 'Embe hông cho phép dùng mic :('; break;
+                        default: errorMsg += event.error;
+                    }
+                    addMessage('bot', errorMsg, 'error-message');
+                };
+
+                recognition.onend = () => {
+                    isRecording = false;
+                    recordBtn.classList.remove('recording');
+                    recordBtn.title = "Ghi âm giọng nói";
+                    userInput.placeholder = "Chui choa phép embe noáiiiiiiiiiii... Hoặc nhấn Mic"; // Restore placeholder
+                    userInput.focus(); // Focus input after recording
+                };
+
             } else {
-                showChatInterface();
-                // Optionally add a welcome message if desired
-                // addMessage('bot', 'Xin chào! Tôi là Gemini Flash. Gửi tin nhắn hoặc tải ảnh lên.', 'system-message');
+                console.warn('Speech Recognition API không được hỗ trợ trên trình duyệt này.');
+                recordBtn.disabled = true; // Disable button if not supported
+                recordBtn.title = "Trình duyệt không hỗ trợ ghi âm";
             }
 
-             // Check if chat history exists in localStorage
+            // Check TTS support
+            if (!SpeechSynthesis) {
+                console.warn('Speech Synthesis API không được hỗ trợ trên trình duyệt này.');
+                // We won't disable buttons added dynamically, but they won't work.
+            }
+
+            // Initialize Theme & Chat Interface
+            applyTheme();
+
+            if (!apiKey) {
+                showApiKeyInput();
+            } else {
+                showChatInterface();
+            }
+
+             // Load chat history
             const savedHistory = localStorage.getItem('geminiChatHistory');
             if (savedHistory) {
                 try {
                     chatHistory = JSON.parse(savedHistory);
                     // Re-render history
                     chatHistory.forEach(msg => {
-                        // Simple re-render, doesn't handle images in history perfectly visually
                          if (msg.role === 'user') {
                             const textPart = msg.parts.find(p => p.text)?.text || '';
                              const imagePart = msg.parts.find(p => p.inline_data);
+                             // Re-render simply, without image preview in history
                              addMessage('user', textPart + (imagePart ? ' [Đã gửi ảnh]' : ''));
                          } else if (msg.role === 'model') {
                             const textPart = msg.parts.find(p => p.text)?.text || '';
                             addMessage('bot', textPart);
                          }
                     });
-                    scrollToBottom(); // Scroll after loading history
+                    scrollToBottom();
                 } catch (e) {
                     console.error("Could not parse chat history:", e);
-                    localStorage.removeItem('geminiChatHistory'); // Clear corrupted history
+                    localStorage.removeItem('geminiChatHistory');
                     chatHistory = [];
                 }
             }
 
 
-            // Event Listeners
+            // --- Event Listeners ---
             saveApiKeyBtn.addEventListener('click', saveApiKey);
-            useChatBtn.addEventListener('click', () => { // Allow entering chat without saving key
+            useChatBtn.addEventListener('click', () => {
                  showChatInterface();
                  if (!apiKey) {
                      addMessage('bot', 'Áaaaaaaaaaaaa.', 'error-message');
                  }
             });
-             manageApiBtn.addEventListener('click', showApiKeyInput); // Show API key section again
-
+             manageApiBtn.addEventListener('click', showApiKeyInput);
             sendBtn.addEventListener('click', sendMessage);
             userInput.addEventListener('keydown', (e) => {
                 if (e.key === 'Enter' && !e.shiftKey) {
                     e.preventDefault();
                     sendMessage();
                 }
-                 autoResizeTextarea(userInput); // Resize on keydown too
+                 autoResizeTextarea(userInput);
             });
-             userInput.addEventListener('input', () => autoResizeTextarea(userInput)); // Resize on input
+             userInput.addEventListener('input', () => autoResizeTextarea(userInput));
 
             themeToggle.addEventListener('click', toggleTheme);
-
-            // Image Upload Listeners
             uploadBtn.addEventListener('click', () => imageInput.click());
             imageInput.addEventListener('change', handleImageUpload);
             removeImageBtn.addEventListener('click', removeImage);
+
+            // NEW: Record Button Listener
+            recordBtn.addEventListener('click', toggleRecording);
+
+            // NEW: TTS Button Listener (using event delegation on chatbox)
+            chatbox.addEventListener('click', (event) => {
+                const ttsButton = event.target.closest('.tts-btn');
+                if (ttsButton && SpeechSynthesis) {
+                    const textToSpeak = ttsButton.dataset.textToSpeak;
+                    if (textToSpeak) {
+                        speakText(textToSpeak);
+                    }
+                }
+            });
 
             // --- Functions ---
 
@@ -939,86 +1089,118 @@
                     localStorage.setItem('geminiApiKey', key);
                     showChatInterface();
                     addMessage('bot', '1 2 3 Doooooooooo!', 'system-message');
-                    // Consider clearing history on new key? Optional.
-                    // chatHistory = [];
-                    // chatbox.innerHTML = '';
-                    // localStorage.removeItem('geminiChatHistory');
                 } else {
-                     // Allow saving an empty key to clear it
                      apiKey = null;
                      localStorage.removeItem('geminiApiKey');
                      addMessage('bot', 'Xóa ùi hẻeeeeeeeeee.', 'system-message');
-                     // Keep chat interface visible or hide? User preference. Let's keep it visible.
-                     // showApiKeyInput(); // Optionally force back to API input
                 }
             }
 
              function handleImageUpload(event) {
                 const file = event.target.files[0];
                 if (!file) return;
-
-                // Basic validation (optional: add size limit)
                 if (!file.type.startsWith('image/')) {
                     addMessage('bot', 'Chọn lợi i bị lũi ùi chùiiiiiiiii.', 'error-message');
                     return;
                 }
-
                 const reader = new FileReader();
                 reader.onloadend = () => {
-                    const base64String = reader.result.split(',')[1]; // Get base64 part
-                    currentImageData = {
-                        mimeType: file.type,
-                        data: base64String
-                    };
-                    // Show preview
-                    previewImage.src = reader.result; // Show thumbnail
+                    const base64String = reader.result.split(',')[1];
+                    currentImageData = { mimeType: file.type, data: base64String };
+                    previewImage.src = reader.result;
                     previewFilename.textContent = file.name.length > 20 ? file.name.substring(0, 17) + '...' : file.name;
                     imagePreviewArea.classList.remove('hidden');
-                    adjustInputAreaPadding(true); // Add padding below input
                 };
                 reader.onerror = (error) => {
                     console.error('Error reading file:', error);
                     addMessage('bot', 'Đọc như hăm đọc nhunnnnnnnn.', 'error-message');
-                    currentImageData = null;
-                     imagePreviewArea.classList.add('hidden');
-                     adjustInputAreaPadding(false);
+                    removeImage(); // Clear data if error
                 };
                 reader.readAsDataURL(file);
-
-                // Reset file input to allow selecting the same file again
                 imageInput.value = '';
             }
 
             function removeImage() {
                 currentImageData = null;
                 imagePreviewArea.classList.add('hidden');
-                previewImage.src = '#'; // Clear preview src
-                adjustInputAreaPadding(false); // Remove extra padding
+                previewImage.src = '#';
             }
 
-             function adjustInputAreaPadding(hasImage) {
-                 // This function is primarily to manage layout shifts
-                 // If the preview area takes space, the chatbox needs less space
-                 // We don't need complex adjustments if the preview is outside the scroll area
-                 // Let's keep it simple unless visual issues arise
-             }
+            // NEW: Toggle Recording Function
+            function toggleRecording() {
+                if (!recognition) return; // Do nothing if not supported
+
+                if (isRecording) {
+                    recognition.stop(); // onend will handle UI changes
+                } else {
+                    // Check microphone permission status (optional but good practice)
+                    navigator.mediaDevices.getUserMedia({ audio: true })
+                        .then(stream => {
+                            // Got permission (or already had it)
+                            stream.getTracks().forEach(track => track.stop()); // Stop the track immediately, we only needed permission
+                            recognition.start(); // Start recognition
+                        })
+                        .catch(err => {
+                            console.error("Microphone access denied:", err);
+                            addMessage('bot', 'Embe hông cho phép dùng mic hoặc có lỗi á :(', 'error-message');
+                             isRecording = false; // Ensure state is correct
+                             recordBtn.classList.remove('recording');
+                             recordBtn.title = "Ghi âm giọng nói";
+                        });
+                }
+            }
+
+            // NEW: Speak Text Function
+            function speakText(text) {
+                 if (!SpeechSynthesis) {
+                    addMessage('bot', 'Trình duyệt hông hỗ trợ đọc văn bản :(', 'system-message');
+                    return;
+                }
+                // Cancel any previous speech
+                if (SpeechSynthesis.speaking) {
+                    SpeechSynthesis.cancel();
+                }
+
+                const utterance = new SpeechSynthesisUtterance(text);
+                utterance.lang = 'vi-VN'; // Set language for synthesis
+
+                // Optional: Find a specific Vietnamese voice if available
+                const voices = SpeechSynthesis.getVoices();
+                const vietnameseVoice = voices.find(voice => voice.lang === 'vi-VN');
+                if (vietnameseVoice) {
+                    utterance.voice = vietnameseVoice;
+                } else {
+                    console.warn("Không tìm thấy giọng đọc tiếng Việt, sử dụng giọng mặc định.");
+                }
+
+                // Optional: Adjust rate and pitch
+                // utterance.rate = 1; // 0.1 to 10
+                // utterance.pitch = 1; // 0 to 2
+
+                 utterance.onerror = (event) => {
+                    console.error('SpeechSynthesis Error:', event.error);
+                    addMessage('bot', `Lỗi đọc: ${event.error}`, 'error-message');
+                };
+
+                SpeechSynthesis.speak(utterance);
+            }
+
 
             async function sendMessage() {
                 const messageText = userInput.value.trim();
-                if (!messageText && !currentImageData) return; // Need text or image
-
+                if (!messageText && !currentImageData) return;
                 if (!apiKey) {
                     addMessage('bot', 'Nhập Lợi APIIIIIIIII.', 'error-message');
-                    showApiKeyInput(); // Force API key input
+                    showApiKeyInput();
                     return;
                 }
 
-                // Construct user message parts
                 const userParts = [];
-                if (messageText) {
-                    userParts.push({ text: messageText });
-                }
-                let displayMessage = messageText; // For showing in chatbox
+                if (messageText) userParts.push({ text: messageText });
+
+                let displayHtml = messageText // Start with text for display
+                    .replace(/</g, "<") // Escape HTML characters in user text first
+                    .replace(/>/g, ">");
 
                  if (currentImageData) {
                     userParts.push({
@@ -1027,93 +1209,81 @@
                             data: currentImageData.data
                         }
                     });
-                     // Add visual indicator for the image in the user's message bubble
-                     displayMessage += ` <img src="data:${currentImageData.mimeType};base64,${currentImageData.data}" alt="Uploaded Image" class="thumbnail">`;
-                     // Alternative: just text -> displayMessage += "\n[Đã gửi ảnh]";
+                     // Add thumbnail to display message (use actual data URI)
+                     displayHtml += ` <br><img src="data:${currentImageData.mimeType};base64,${currentImageData.data}" alt="Uploaded Image" class="thumbnail">`;
                 }
 
-
-                 // Add user message visually (with image if present)
-                addMessage('user', displayMessage);
-
-                // Update history *before* clearing image data
+                addMessage('user', displayHtml); // Add user message visually
                 updateChatHistory('user', userParts);
 
-                // Clear input and image *after* processing
                 userInput.value = '';
-                autoResizeTextarea(userInput); // Reset textarea height
-                removeImage(); // Clear stored image data and hide preview
+                autoResizeTextarea(userInput);
+                removeImage();
 
                 showLoading(true);
 
                 try {
-                     const generationConfig = {
-                         // Adjust temperature (creativity vs factual) - 0.0 to 1.0
-                         temperature: 0.7,
-                         // Adjust topP (nucleus sampling) - 0.0 to 1.0
-                         topP: 0.95,
-                          // Adjust topK (token sampling)
-                         topK: 40,
-                          // Max output tokens (adjust based on model/needs)
-                         maxOutputTokens: 2048,
-                     };
-
-                     const safetySettings = [ // Example: block most harmful content
+                     const generationConfig = { temperature: 0.7, topP: 0.95, topK: 40, maxOutputTokens: 2048 };
+                     const safetySettings = [
                         { category: "HARM_CATEGORY_HARASSMENT", threshold: "BLOCK_MEDIUM_AND_ABOVE" },
                         { category: "HARM_CATEGORY_HATE_SPEECH", threshold: "BLOCK_MEDIUM_AND_ABOVE" },
                         { category: "HARM_CATEGORY_SEXUALLY_EXPLICIT", threshold: "BLOCK_MEDIUM_AND_ABOVE" },
                         { category: "HARM_CATEGORY_DANGEROUS_CONTENT", threshold: "BLOCK_MEDIUM_AND_ABOVE" }
                     ];
 
-
                     const response = await fetch(`${API_BASE_URL}${MODEL_NAME}:generateContent?key=${apiKey}`, {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify({
-                             contents: chatHistory,
-                             generationConfig: generationConfig, // Add config
-                             safetySettings: safetySettings // Add safety settings
-                         })
+                        body: JSON.stringify({ contents: chatHistory, generationConfig, safetySettings })
                     });
 
                     const data = await response.json();
-                    console.log("API Response:", data); // Log for debugging
+                    console.log("API Response:", data);
 
                     if (!response.ok) {
                          const errorMsg = data?.error?.message || `Lỗi HTTP: ${response.status}`;
-                         // Check for specific API key errors
                          if (response.status === 400 && errorMsg.toLowerCase().includes('api key not valid')) {
-                              addMessage('bot', `Lỗi: API Key không hợp lệ. Vui lòng kiểm tra lại. (${errorMsg})`, 'error-message');
-                              showApiKeyInput(); // Prompt for key again
-                         } else if (response.status === 429) { // Rate limit
-                             addMessage('bot', `Lỗi: Vượt quá giới hạn yêu cầu API. Vui lòng thử lại sau. (${errorMsg})`, 'error-message');
-                         }
-                         else {
+                              addMessage('bot', `Lỗi: API Key không hợp lệ. (${errorMsg})`, 'error-message');
+                              showApiKeyInput();
+                         } else if (response.status === 429) {
+                             addMessage('bot', `Lỗi: Vượt quá giới hạn yêu cầu API. (${errorMsg})`, 'error-message');
+                         } else {
                              throw new Error(errorMsg);
                          }
                     } else if (data.promptFeedback?.blockReason) {
-                        const blockReason = `Yêu cầu hoặc phản hồi bị chặn: ${data.promptFeedback.blockReason}. Lý do chi tiết: ${data.promptFeedback.safetyRatings?.map(r => `${r.category}: ${r.probability}`).join(', ') || 'Không có'}`;
+                        const blockReason = `Yêu cầu/phản hồi bị chặn: ${data.promptFeedback.blockReason}.`;
                         addMessage('bot', blockReason, 'error-message');
-                        // Don't add blocked response to history
-                    } else if (data.candidates?.[0]?.content?.parts?.[0]?.text) {
-                        const botResponse = data.candidates[0].content.parts.map(part => part.text).join(""); // Join if multiple text parts
-                        addMessage('bot', botResponse);
-                        updateChatHistory('model', [{ text: botResponse }]); // Add bot response to history
+                    } else if (data.candidates?.[0]?.content?.parts) {
+                        // Combine all text parts from the response
+                        const botResponseText = data.candidates[0].content.parts
+                            .filter(part => part.text) // Ensure only parts with text are included
+                            .map(part => part.text)
+                            .join("");
+
+                         if (botResponseText) { // Check if there's actual text content
+                            addMessage('bot', botResponseText);
+                            updateChatHistory('model', [{ text: botResponseText }]);
+                        } else {
+                             // Handle cases where the response might contain non-text parts (though less common for Flash)
+                             console.warn("Bot response contained no text parts:", data.candidates[0].content.parts);
+                             addMessage('bot', '[Phản hồi không chứa văn bản]', 'system-message');
+                             // Avoid adding empty messages to history
+                         }
                     } else {
                         console.warn("Unexpected response structure:", data);
-                        addMessage('bot', 'Mất kết núiiiiiiiiii', 'error-message');
-                         // Still add a placeholder to history if needed? Maybe not.
+                        addMessage('bot', 'Mất kết núiiiiiiiiii (Phản hồi lạ)', 'error-message');
                     }
                 } catch (error) {
                     console.error('Error calling Gemini API:', error);
                     addMessage('bot', `Lỗi ùiiiiiiiiiiiii: ${error.message}`, 'error-message');
                 } finally {
                     showLoading(false);
-                     saveChatHistoryToLocalStorage(); // Save history after interaction
+                     saveChatHistoryToLocalStorage();
                 }
             }
 
-             function addMessage(sender, text, type = '') {
+            // MODIFIED addMessage to include TTS button
+             function addMessage(sender, textOrHtml, type = '') {
                 const messageElement = document.createElement('div');
                 messageElement.classList.add('message');
 
@@ -1123,41 +1293,72 @@
                 else messageClass = sender === 'user' ? 'user-message' : 'bot-message';
                 messageElement.classList.add(messageClass);
 
-                // Basic Markdown and HTML handling (Improved slightly)
-                // WARNING: Setting innerHTML from user/API content can be risky if not sanitized.
-                // For a simple demo, this is okay, but real apps need sanitization libraries (like DOMPurify).
-                let formattedText = text
-                    .replace(/</g, "<") // Basic HTML escape first
-                    .replace(/>/g, ">")
-                    .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>') // Bold
-                    .replace(/\*(.*?)\*/g, '<em>$1</em>')     // Italics
-                    .replace(/`(.*?)`/g, '<code>$1</code>')   // Inline code
-                    .replace(/```([\s\S]*?)```/g, '<pre><code>$1</code></pre>') // Code blocks
-                    .replace(/^(#{1,6})\s+(.*)/gm, (match, p1, p2) => `<h${p1.length}>${p2}</h${p1.length}>`) // Headers
-                    .replace(/^- (.*)/gm, '<ul><li>$1</li></ul>') // Basic lists (needs improvement for multi-items)
-                    .replace(/\n/g, '<br>'); // Newlines
+                // --- Store raw text for TTS BEFORE formatting ---
+                let rawTextForTTS = '';
+                if (sender === 'bot' && type !== 'error-message' && type !== 'system-message') {
+                    // If it's HTML (like from user message with image), try to get text content
+                    if (/<[a-z][\s\S]*>/i.test(textOrHtml)) {
+                        const tempDiv = document.createElement('div');
+                        tempDiv.innerHTML = textOrHtml;
+                        rawTextForTTS = tempDiv.textContent || tempDiv.innerText || '';
+                    } else {
+                         rawTextForTTS = textOrHtml; // Assume it's plain text
+                    }
+                    // Basic cleanup for TTS
+                    rawTextForTTS = rawTextForTTS.replace(/<br\s*\/?>/gi, '\n').trim();
+                }
+                // --- End TTS text storage ---
 
-                 // Handle the image thumbnail added to the user message
-                 if (sender === 'user' && text.includes('<img src="data:image')) {
-                     // The replace above might have escaped the img tag, restore it
-                     // This is a bit hacky, proper DOM manipulation or a templating engine is better
-                      formattedText = formattedText.replace(/<img src="data:image(.*?)>/g, '<img src="data:image$1>');
+
+                // --- Formatting (Keep your existing logic) ---
+                 let formattedHtml = textOrHtml; // Assume input might already be HTML safe (like from user image display)
+                 // Apply Markdown only if it's likely not already complex HTML
+                 if (!/<(strong|em|code|pre|h[1-6]|ul|li|img)[^>]*>/i.test(formattedHtml)) {
+                     formattedHtml = formattedHtml
+                        .replace(/</g, "<") // Escape remaining HTML special chars
+                        .replace(/>/g, ">")
+                        .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>') // Bold
+                        .replace(/\*(.*?)\*/g, '<em>$1</em>')     // Italics
+                        .replace(/`(.*?)`/g, '<code>$1</code>')   // Inline code
+                        .replace(/```([\s\S]*?)```/g, '<pre><code>$1</code></pre>') // Code blocks
+                        .replace(/^(#{1,6})\s+(.*)/gm, (match, p1, p2) => `<h${p1.length}>${p2}</h${p1.length}>`) // Headers
+                        .replace(/^- (.*)/gm, '<ul><li>$1</li></ul>') // Basic lists
+                        .replace(/\n/g, '<br>'); // Newlines
                  }
+                 // Ensure user-added image tags are not double-escaped (if added before this function)
+                 formattedHtml = formattedHtml.replace(/<img src="data:image(.*?)">/g, '<img src="data:image$1">');
+                 formattedHtml = formattedHtml.replace(/<br>/g, '<br>'); // If <br> got escaped
+
+                messageElement.innerHTML = formattedHtml;
+                // --- End Formatting ---
 
 
-                messageElement.innerHTML = formattedText; // Use the formatted text
+                // --- Add TTS Button for Bot Messages ---
+                if (sender === 'bot' && SpeechSynthesis && rawTextForTTS && type !== 'error-message' && type !== 'system-message') {
+                    const ttsButton = document.createElement('button');
+                    ttsButton.classList.add('tts-btn');
+                    ttsButton.title = 'Đọc văn bản';
+                    // Store the raw text in a data attribute
+                    ttsButton.dataset.textToSpeak = rawTextForTTS;
+                    ttsButton.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-volume-up-fill" viewBox="0 0 16 16">
+                        <path d="M11.536 14.01A8.47 8.47 0 0 0 14.026 8a8.47 8.47 0 0 0-2.49-6.01l-.708.707A7.48 7.48 0 0 1 13.025 8c0 2.071-.84 3.946-2.197 5.303z"/>
+                        <path d="M10.121 12.596A6.48 6.48 0 0 0 12.025 8a6.48 6.48 0 0 0-1.904-4.596l-.707.707A5.48 5.48 0 0 1 11.025 8a5.48 5.48 0 0 1-1.61 3.89z"/>
+                        <path d="M8.707 11.182A4.5 4.5 0 0 0 10.025 8a4.5 4.5 0 0 0-1.318-3.182L8 5.525A3.5 3.5 0 0 1 9.025 8 3.5 3.5 0 0 1 8 10.475zM6.717 3.55A.5.5 0 0 1 7 4v8a.5.5 0 0 1-.812.39L3.825 10H1.5A.5.5 0 0 1 1 9.5v-3A.5.5 0 0 1 1.5 6h2.325l2.363-2.39a.5.5 0 0 1 .529-.06z"/>
+                    </svg>`;
+                    // Append button *inside* the message bubble for better layout
+                    messageElement.appendChild(ttsButton);
+                }
+                // --- End Add TTS Button ---
+
                 chatbox.appendChild(messageElement);
                 scrollToBottom();
             }
 
-            function updateChatHistory(role, parts) {
-                 // Gemini expects history as {role: 'user'/'model', parts: [{text: "..."}, {inline_data: {...}}]}
-                 chatHistory.push({ role, parts });
 
-                 // Keep history manageable (e.g., last 20 turns = 40 messages)
-                 const maxHistoryLength = 40; // Adjust as needed
+            function updateChatHistory(role, parts) {
+                 chatHistory.push({ role, parts });
+                 const maxHistoryLength = 40;
                  if (chatHistory.length > maxHistoryLength) {
-                     // Remove the oldest *pair* (user + model) to keep context logical
                      chatHistory = chatHistory.slice(chatHistory.length - maxHistoryLength);
                  }
              }
@@ -1167,16 +1368,15 @@
                      localStorage.setItem('geminiChatHistory', JSON.stringify(chatHistory));
                  } catch (e) {
                      console.error("Could not save chat history:", e);
-                     // Maybe notify user or clear old history if storage is full
                  }
              }
-
 
             function showLoading(show) {
                 loadingIndicator.classList.toggle('hidden', !show);
                 sendBtn.disabled = show;
                 userInput.disabled = show;
-                uploadBtn.disabled = show; // Disable upload button too
+                uploadBtn.disabled = show;
+                recordBtn.disabled = show || !SpeechRecognition; // Disable record if loading or not supported
                  if (!show) {
                     userInput.focus();
                 }
@@ -1184,20 +1384,25 @@
 
             function showChatInterface() {
                 apiKeySection.classList.add('hidden');
-                chatArea.classList.remove('hidden'); // Show chat area
-                // Make sure input area is visible if chat area is shown
+                chatArea.classList.remove('hidden');
                 document.querySelector('.input-area').classList.remove('hidden');
-                if (chatHistory.length === 0 && apiKey) { // Only add welcome if new chat and key exists
-                   // addMessage('bot', `Xin chào! Đã kết nối với ${MODEL_NAME}.`, 'system-message');
+                if (chatHistory.length === 0 && apiKey) {
+                    // Optional: Welcome message
+                    // addMessage('bot', `Đã kết nối! Sẵn sàng nhận tin nhắn hoặc giọng nói.`, 'system-message');
                 } else if (chatHistory.length > 0) {
-                    scrollToBottom(); // Scroll if loading history
+                    scrollToBottom();
                 }
+                // Ensure record button is enabled/disabled correctly based on support
+                if(recordBtn) recordBtn.disabled = !SpeechRecognition;
             }
 
             function showApiKeyInput() {
                 apiKeySection.classList.remove('hidden');
-                chatArea.classList.add('hidden'); // Hide chat area
-                apiKeyInput.value = apiKey || ''; // Pre-fill if key exists
+                chatArea.classList.add('hidden');
+                apiKeyInput.value = apiKey || '';
+                 // Cancel any ongoing speech synthesis or recognition if user goes back to API key
+                 if (SpeechSynthesis && SpeechSynthesis.speaking) SpeechSynthesis.cancel();
+                 if (recognition && isRecording) recognition.abort(); // Use abort for immediate stop without result
             }
 
             function applyTheme() {
@@ -1215,12 +1420,10 @@
                  const icon = themeToggle.querySelector('svg');
                  const tooltip = themeToggle.querySelector('.tooltip');
                 if (isDarkMode) {
-                     // Moon Icon (Example)
                     icon.innerHTML = '<path d="M21.752 15.002A9.72 9.72 0 0 1 18 15.75c-5.385 0-9.75-4.365-9.75-9.75 0-1.33.266-2.597.748-3.752A9.753 9.753 0 0 0 3 10.25c0 5.385 4.365 9.75 9.75 9.75 1.657 0 3.21-.418 4.65-1.148a.75.75 0 0 1 .652 1.297A11.2 11.2 0 0 1 12.75 22C6.8 22 2.25 17.454 2.25 11.5S6.8 1 12.75 1c.85 0 1.675.105 2.465.301a.75.75 0 0 1-.6 1.38 9.7 9.7 0 0 0-1.865-.301C7.608 2.35 3.75 6.208 3.75 10.75c0 4.078 2.912 7.45 6.716 8.152a.75.75 0 0 1 .434.698Z"/>';
                     themeToggle.style.background = 'linear-gradient(135deg, #6c757d, #495057)';
                     tooltip.textContent = 'Đổi sang Sáng';
                 } else {
-                    // Sun Icon (Example)
                     icon.innerHTML = '<path d="M12 18a6 6 0 1 0 0-12 6 6 0 0 0 0 12ZM12 3.75V1.5a.75.75 0 0 1 1.5 0v2.25a.75.75 0 0 1-1.5 0ZM20.25 12h2.25a.75.75 0 0 1 0 1.5h-2.25a.75.75 0 0 1 0-1.5ZM12 20.25v2.25a.75.75 0 0 1-1.5 0v-2.25a.75.75 0 0 1 1.5 0ZM3.75 12H1.5a.75.75 0 0 1 0-1.5h2.25a.75.75 0 0 1 0 1.5ZM18.3 5.7a.75.75 0 0 1 1.06 1.06l-1.591 1.59a.75.75 0 1 1-1.06-1.06l1.59-1.59ZM5.7 18.3a.75.75 0 0 1 1.06-1.06l1.59 1.59a.75.75 0 0 1-1.06 1.06l-1.59-1.59ZM18.3 18.3a.75.75 0 0 1-1.06 1.06l-1.59-1.59a.75.75 0 1 1 1.06-1.06l1.59 1.59ZM5.7 5.7a.75.75 0 0 1 1.06-1.06l1.59 1.59a.75.75 0 0 1-1.06 1.06L5.701 5.7Z"/>';
                     themeToggle.style.background = 'linear-gradient(135deg, var(--primary), var(--secondary))';
                      tooltip.textContent = 'Đổi sang Tối';
@@ -1228,21 +1431,15 @@
             }
 
              function autoResizeTextarea(element) {
-                // Reset height to auto to calculate scrollHeight correctly
                 element.style.height = 'auto';
-                // Set height to scrollHeight, but not exceeding max-height
                 const maxHeight = parseInt(window.getComputedStyle(element).maxHeight, 10);
                  const newHeight = Math.min(element.scrollHeight, maxHeight);
                 element.style.height = newHeight + 'px';
              }
 
              function scrollToBottom() {
-                // Use requestAnimationFrame for smoother scrolling after DOM updates
                 requestAnimationFrame(() => {
-                    chatbox.scrollTo({
-                        top: chatbox.scrollHeight,
-                        behavior: 'smooth'
-                    });
+                    chatbox.scrollTo({ top: chatbox.scrollHeight, behavior: 'smooth' });
                 });
             }
 
